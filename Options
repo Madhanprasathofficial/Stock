@@ -1,47 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
 
-class Stock {
-    private String symbol;
-    private boolean isOption;
+import java.io.IOException;
+import java.util.Map;
 
-    public Stock(String symbol, boolean isOption) {
-        this.symbol = symbol;
-        this.isOption = isOption;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public boolean isOption() {
-        return isOption;
-    }
-}
-
-public class StockFilter {
+public class NSEStockFetcher {
     public static void main(String[] args) {
-        List<Stock> stocks = new ArrayList<>();
-        // Populate stocks list, replace this with your actual list of stocks
-        stocks.add(new Stock("AAPL", false));
-        stocks.add(new Stock("GOOGL", true));
-        stocks.add(new Stock("TSLA", true));
-        stocks.add(new Stock("MSFT", false));
-
-        List<Stock> optionStocks = getOptionStocks(stocks);
-        System.out.println("Option Stocks:");
-        for (Stock stock : optionStocks) {
-            System.out.println(stock.getSymbol());
+        try {
+            Map<String, Stock> nseStocks = fetchNSEStocks();
+            System.out.println("NSE Stocks:");
+            for (String symbol : nseStocks.keySet()) {
+                System.out.println(symbol);
+            }
+        } catch (IOException e) {
+            System.err.println("Error fetching NSE stocks: " + e.getMessage());
         }
     }
 
-    private static List<Stock> getOptionStocks(List<Stock> stocks) {
-        List<Stock> optionStocks = new ArrayList<>();
-        for (Stock stock : stocks) {
-            if (stock.isOption()) {
-                optionStocks.add(stock);
-            }
-        }
-        return optionStocks;
+    private static Map<String, Stock> fetchNSEStocks() throws IOException {
+        return YahooFinance.get("^.NSE"); // Fetch all NSE stocks
     }
 }
