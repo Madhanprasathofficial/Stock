@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Stock {
+    private String symbol;
+    private boolean isOption;
+
+    public Stock(String symbol, boolean isOption) {
+        this.symbol = symbol;
+        this.isOption = isOption;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public boolean isOption() {
+        return isOption;
+    }
+}
+
+public class StockFilter {
+    public static void main(String[] args) {
+        List<Stock> stocks = new ArrayList<>();
+        // Populate stocks list, replace this with your actual list of stocks
+        stocks.add(new Stock("AAPL", false));
+        stocks.add(new Stock("GOOGL", true));
+        stocks.add(new Stock("TSLA", true));
+        stocks.add(new Stock("MSFT", false));
+
+        List<Stock> optionStocks = getOptionStocks(stocks);
+        System.out.println("Option Stocks:");
+        for (Stock stock : optionStocks) {
+            System.out.println(stock.getSymbol());
+        }
+    }
+
+    private static List<Stock> getOptionStocks(List<Stock> stocks) {
+        List<Stock> optionStocks = new ArrayList<>();
+        for (Stock stock : stocks) {
+            if (stock.isOption()) {
+                optionStocks.add(stock);
+            }
+        }
+        return optionStocks;
+    }
+}
