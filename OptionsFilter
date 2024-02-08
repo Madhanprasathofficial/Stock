@@ -1,0 +1,47 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class NSEStockListFetcher {
+    public static void main(String[] args) {
+        try {
+            List<String> nseStocks = fetchNSEStocks();
+            System.out.println("NSE Stocks:");
+            for (String symbol : nseStocks) {
+                System.out.println(symbol);
+            }
+        } catch (IOException e) {
+            System.err.println("Error fetching NSE stocks: " + e.getMessage());
+        }
+    }
+
+    private static List<String> fetchNSEStocks() throws IOException {
+        List<String> nseStocks = new ArrayList<>();
+        String url = "https://www.nseindia.com/products/content/equities/equities/eq_security.htm";
+
+        // Set your cookie value here
+        String cookie = "your_cookie_name=your_cookie_value";
+
+        // Connect to the URL and set the cookie
+        Document doc = Jsoup.connect(url)
+                .header("Cookie", cookie)
+                .get();
+
+        Elements rows = doc.select("table tbody tr");
+
+        for (Element row : rows) {
+            Elements cols = row.select("td");
+            if (cols.size() > 1) {
+                String symbol = cols.get(0).text();
+                nseStocks.add(symbol);
+            }
+        }
+
+        return nseStocks;
+    }
+}
