@@ -3,7 +3,7 @@ class Solution {
         int n = S.length();
         boolean[] occupied = new boolean[n];
         int count = 0;
-        
+
         // Simulate moves
         for (int i = 0; i < n; i++) {
             char direction = S.charAt(i);
@@ -22,23 +22,7 @@ class Solution {
                 count++;
             }
         }
-        
-        return count;
-    }
-}
 
-public class Main {
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        
-        // Given test case from the question
-        String givenTestCase = "∥ >∨ ∧ v";
-        // Expected output: 2
-        System.out.println("Given test case: " + solution.solution(givenTestCase));
-        
-        // Additional test cases
-        String additionalTestCase = "n⟨⟨∧⟨v⟩⟩";
-        // Expected output: 6
-        System.out.println("Additional test case: " + solution.solution(additionalTestCase));
+        return count;
     }
 }
