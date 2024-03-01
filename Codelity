@@ -31,29 +31,14 @@ public class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
         
-        // Test case 1
-        String testCase1 = "<>v^";
-        // Expected output: 4
-        System.out.println("Test case 1: " + solution.solution(testCase1));
+        // Given test case from the question
+        String givenTestCase = "∥ >∨ ∧ v";
+        // Expected output: 2
+        System.out.println("Given test case: " + solution.solution(givenTestCase));
         
-        // Test case 2
-        String testCase2 = "^^^^^^";
-        // Expected output: 1
-        System.out.println("Test case 2: " + solution.solution(testCase2));
-        
-        // Test case 3
-        String testCase3 = "><><><><";
-        // Expected output: 0
-        System.out.println("Test case 3: " + solution.solution(testCase3));
-        
-        // Test case 4
-        String testCase4 = "v>v>v>v>v>v";
-        // Expected output: 1
-        System.out.println("Test case 4: " + solution.solution(testCase4));
-        
-        // Test case 5
-        String testCase5 = ">>v^<<";
-        // Expected output: 3
-        System.out.println("Test case 5: " + solution.solution(testCase5));
+        // Additional test cases
+        String additionalTestCase = "n⟨⟨∧⟨v⟩⟩";
+        // Expected output: 6
+        System.out.println("Additional test case: " + solution.solution(additionalTestCase));
     }
 }
