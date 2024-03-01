@@ -1,0 +1,23 @@
+public class Solution {
+    public static int solution(String s) {
+        int n = s.length();
+        int patches = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == 'x') {
+                patches++;
+                i += 2; // Skip the next two segments as they will be patched together
+            }
+        }
+        
+        return patches;
+    }
+    
+    public static void main(String[] args) {
+        // Test cases
+        String[] roads = {".x..x", "X.XXXxx.x.", "xx.xxx..", "xxxx"};
+        for (String road : roads) {
+            System.out.println(solution(road));
+        }
+    }
+}
