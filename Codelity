@@ -1,44 +1,72 @@
-class Solution {
-    public int solution(String S) {
-        int n = S.length();
-        boolean[] occupied = new boolean[n];
-        int count = 0;
-
-        // Simulate moves
-        for (int i = 0; i < n; i++) {
-            char direction = S.charAt(i);
-            int newPos = -1;
-            if (direction == '<') {
-                newPos = i - 1;
-            } else if (direction == '>') {
-                newPos = i + 1;
-            } else if (direction == '^') {
-                newPos = i - 4; // Distance for '∧'
-            } else if (direction == 'v') {
-                newPos = i + 4; // Distance for '∨'
-            }
-            if (newPos >= 0 && newPos < n && !occupied[newPos]) {
-                occupied[newPos] = true;
-                count++;
-            }
+class Solution{
+    public int solution(int []D,int X){
+        int len = D.length;
+        
+        // if the array length is less than 1
+        if(len <= 1){
+            return len;
         }
-
-        return count;
+        else{
+            
+            // declare min_days variable and set that as 1
+            int min_days = 1;
+            
+            // declare min_credit and max_credit to keep track of credits at each day
+            int min_credit = D[0];
+            int max_credit = D[0];
+            
+            // iterate over the given array
+            for(int i=1;i<len;i++){
+                
+                // find an absolute difference between today's min_credit and current credits
+                int diff_min = D[i] - min_credit;
+                
+                // find an absolute difference between today's max_credit and current credits
+                int diff_max = D[i] - max_credit;
+                diff_min = (diff_min < 0) ? -diff_min : diff_min;
+                diff_max = (diff_max < 0) ? -diff_max : diff_max;
+                
+                // if any difference is more than the given difference
+                if(diff_min > X || diff_max > X){
+                    
+                    // increment the min_days and update the min_credit and max_credit
+                    min_days++;
+                    min_credit = D[i];
+                    max_credit = D[i];
+                }
+                else{
+                    
+                    // if the current element is less than the min_credit
+                    if(D[i] < min_credit){
+                        min_credit = D[i];
+                    }
+                    
+                    // if the current element is more than the max_credit
+                    if(D[i] > min_credit){
+                        max_credit = D[i];
+                    }
+                    
+                }
+                
+            }
+            
+            return min_days;
+        }
     }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        
-        // Given test case from the question
-        String givenTestCase = "∥ >∨ ∧ v";
-        // Expected output: 2
-        System.out.println("Given test case: " + solution.solution(givenTestCase));
-        
-        // Additional test case
-        String additionalTestCase = "n⟨⟨∧⟨v⟩⟩";
-        // Expected output: 6
-        System.out.println("Additional test case: " + solution.solution(additionalTestCase));
-    }
+public class Main
+{
+    
+	public static void main(String[] args) {
+	    
+	     Solution S = new Solution();
+	     
+		 int[] arr1 = new int[]{ 5,8,2,7 }; 
+		 System.out.println(S.solution(arr1,3));
+		 
+		 int[] arr2 = new int[]{ 2,5,9,2,1,4 }; 
+		 System.out.println(S.solution(arr2,4));
+		 
+		 int[] arr3 = new int[]{ 1,12,10,4,5,2 }; 
+		 System.out.println(S.solution(arr3,2));
+	}
 }
