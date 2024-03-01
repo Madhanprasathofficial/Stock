@@ -1,35 +1,59 @@
-import java.util.*;
-
-public class Solution {
-    public int minRelocations(int[] a) {
-        int n = a.length;
-        int left = 0, right = 1;
-        int total = a[0];
-        int minReloc = 0;
-
-        while (right < n) {
-            total += a[right];
-            while (total < 0 && left < right) {
-                total -= a[left];
-                left++;
+class Solution {
+    public int solution(String S) {
+        int n = S.length();
+        boolean[] occupied = new boolean[n];
+        int count = 0;
+        
+        // Simulate moves
+        for (int i = 0; i < n; i++) {
+            char direction = S.charAt(i);
+            int newPos = -1;
+            if (direction == '<') {
+                newPos = i - 1;
+            } else if (direction == '>') {
+                newPos = i + 1;
+            } else if (direction == '^') {
+                newPos = i - n;
+            } else if (direction == 'v') {
+                newPos = i + n;
             }
-            minReloc++;
-            right++;
+            if (newPos >= 0 && newPos < n && !occupied[newPos]) {
+                occupied[newPos] = true;
+                count++;
+            }
         }
-
-        return minReloc;
+        
+        return count;
     }
-public static void main(String[] args) {
+}
+
+public class Main {
+    public static void main(String[] args) {
         Solution solution = new Solution();
-
-        // Test the minRelocations function with multiple test cases
-        int[] testArray1 = {2, -3, 1, 4, -2, 1};
-        System.out.println(solution.minRelocations(testArray1)); // Expected output: 5
-
-        int[] testArray2 = {-1, -2, -3, -4, -5};
-        System.out.println(solution.minRelocations(testArray2)); // Expected output: 5
-
-        int[] testArray3 = {1, 2, 3, 4, 5};
-        System.out.println(solution.minRelocations(testArray3)); // Expected output: 0
+        
+        // Test case 1
+        String testCase1 = "<>v^";
+        // Expected output: 4
+        System.out.println("Test case 1: " + solution.solution(testCase1));
+        
+        // Test case 2
+        String testCase2 = "^^^^^^";
+        // Expected output: 1
+        System.out.println("Test case 2: " + solution.solution(testCase2));
+        
+        // Test case 3
+        String testCase3 = "><><><><";
+        // Expected output: 0
+        System.out.println("Test case 3: " + solution.solution(testCase3));
+        
+        // Test case 4
+        String testCase4 = "v>v>v>v>v>v";
+        // Expected output: 1
+        System.out.println("Test case 4: " + solution.solution(testCase4));
+        
+        // Test case 5
+        String testCase5 = ">>v^<<";
+        // Expected output: 3
+        System.out.println("Test case 5: " + solution.solution(testCase5));
     }
 }
