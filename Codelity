@@ -8,14 +8,14 @@ class Solution {
         for (int i = 0; i < n; i++) {
             char direction = S.charAt(i);
             int newPos = -1;
-            if (direction == '⟨') {
+            if (direction == '<') {
                 newPos = i - 1;
-            } else if (direction == '⟩') {
+            } else if (direction == '>') {
                 newPos = i + 1;
-            } else if (direction == '∧') {
-                newPos = i - n;
-            } else if (direction == '∨') {
-                newPos = i + n;
+            } else if (direction == '^') {
+                newPos = i - 4; // Distance for '∧'
+            } else if (direction == 'v') {
+                newPos = i + 4; // Distance for '∨'
             }
             if (newPos >= 0 && newPos < n && !occupied[newPos]) {
                 occupied[newPos] = true;
