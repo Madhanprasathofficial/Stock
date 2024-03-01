@@ -1,0 +1,38 @@
+import java.util.Scanner;
+public class Solution{
+    public static int solution(String S){       //function to return the count of minimum number of tanks to place
+        int count=0;        //count of minimum number of tanks to place
+        int n=S.length();       //length of string
+        boolean[] tank=new boolean[n];      //boolean array to maintain the places where we have place a tank
+        int i=0;
+        while(i<S.length()){
+            if(S.charAt(i)=='H'){           
+                if(i>0 && tank[i-1]){       //if tank already placed to left of the house,then do nothing
+                    i++;
+                }
+                else if(i+1<n && S.charAt(i+1)=='-'){         //if empty plot on right, place a tank there    
+                    tank[i+1]=true;
+                    count++;
+                    i++;
+                }
+                else if(i>0 && S.charAt(i-1)=='-'){         //if empty plot on left,place a tank there
+                    tank[i-1]=true;
+                    count++;
+                    i++;
+                }
+                else return -1;         //no available tank, so return -1
+            }
+            else{
+                i++;
+            }
+        }
+        return count;
+}
+    public static void main(String[] args){         //driver function
+        Scanner sc = new Scanner(System.in);    // predefined standard input object
+        int res=0;          //variable to store the minimum number of tanks required
+        String S=sc.nextLine();         //input the string
+        res=solution(S);
+        System.out.println(res);       //output the result
+    }
+}
