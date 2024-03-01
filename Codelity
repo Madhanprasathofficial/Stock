@@ -22,8 +22,14 @@ public class Solution {
 public static void main(String[] args) {
         Solution solution = new Solution();
 
-        // Test the minRelocations function
-        int[] testArray = {2, -3, 1, 4, -2, 1};
-        System.out.println(solution.minRelocations(testArray)); // Expected output: 2
+        // Test the minRelocations function with multiple test cases
+        int[] testArray1 = {2, -3, 1, 4, -2, 1};
+        System.out.println(solution.minRelocations(testArray1)); // Expected output: 5
+
+        int[] testArray2 = {-1, -2, -3, -4, -5};
+        System.out.println(solution.minRelocations(testArray2)); // Expected output: 5
+
+        int[] testArray3 = {1, 2, 3, 4, 5};
+        System.out.println(solution.minRelocations(testArray3)); // Expected output: 0
     }
 }
