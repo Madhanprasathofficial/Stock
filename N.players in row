@@ -1,0 +1,93 @@
+class Solution {
+    public int solution(String S) {
+        // Variable to keep track of successful moves
+        int successfulMoves = 0;
+        // Length of the string representing player moves
+        int N = S.length();
+        // Array to keep track of occupied fields
+        boolean[] notOccupied = new boolean[N]; // keep track of occupied fields
+
+        // Iterate through each player's move
+        for (int i = 0; i < N; i++) {
+            // Get the move of the i-th player
+            char move = S.charAt(i); // get the move of the i-th player
+            // Initialize target field to -1 (invalid)
+            int target = -1; // the target field to move to
+            
+            // Determine the target field based on the player's move
+            switch (move) {
+                // If the move is left
+                case '<':
+                // Move left (decrease index)
+                    target = i - 1; // move left
+                    break;
+                // If the move is right
+                case '>':
+                    // Move right (increase index)
+                    target = i + 1; // move right
+                    break;
+            }
+            
+            // Check if the target field is out of bounds
+            if(target < 0 || target >= N){
+              // Increment successful moves count
+              successfulMoves ++;
+              // Mark the current field as not occupied
+              notOccupied[i] = true;
+            }
+            // Check if the target field is within bounds
+            else if(target >= 0 && target < N){
+              // Check if the target field is not occupied
+              if(notOccupied[target] == true){
+                // Increment successful moves count
+                successfulMoves ++;
+                // Mark the current field as not occupied
+                notOccupied[i] = true;
+              }
+            }
+        }
+        // Return the count of successful moves
+        return successfulMoves;
+    }
+
+    public class Main {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Test Case 1: Players cannot move due to other players blocking their way
+        System.out.println("Test Case 1: " + solution.solution("><^v")); // Expected output: 2
+
+        // Test Case 2: Only one can't move
+        System.out.println("Test Case 2: " + solution.solution("<<^<v>>")); // Expected output: 6
+
+        // Test Case 3: All players can move freely
+        System.out.println("Test Case 3: " + solution.solution("v^v^v^v")); // Expected output: 7
+
+        // Test Case 4: Only one player can move right
+        System.out.println("Test Case 4: " + solution.solution(">>>>")); // Expected output: 1
+
+        // Test Case 5: Only one player can move left
+        System.out.println("Test Case 5: " + solution.solution("<<<<")); // Expected output: 4
+        
+        // Test Case 6: Players blocked in a zigzag pattern
+        System.out.println("Test Case 6: " + solution.solution("<><><><>")); // Expected output: 2
+
+        // Test Case 7: Some players can move in different directions
+        System.out.println("Test Case 7: " + solution.solution("v^<>v^")); // Expected output: 5
+
+        // Test Case 8: All players can move in different directions
+        System.out.println("Test Case 8: " + solution.solution("v^<v^>")); // Expected output: 6
+
+        // Test Case 9: One player can't move to right
+        System.out.println("Test Case 9: " + solution.solution("v^>v^<")); // Expected output: 5
+        
+         // Test Case 10: Left most player blocked
+        System.out.println("Test Case 10: " + solution.solution(">^^^vvv<")); // Expected output: 7
+        
+        // Test Case 11: Right moving players blocked in a zigzag pattern
+        System.out.println("Test Case 11: " + solution.solution(">v>v>v^<^<^<")); // Expected output: 9
+
+         // Test Case 12: Large number of players with various movement patterns
+        System.out.println("Test Case 12: " + solution.solution(">>><><<^vvvv^<<^^><^>>")); // Expected output: 12
+    }
+}
