@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Solution {
+    public int minRelocations(int[] a) {
+        int n = a.length;
+        int left = 0, right = 1;
+        int total = a[0];
+        int minReloc = 0;
+
+        while (right < n) {
+            total += a[right];
+            while (total < 0 && left < right) {
+                total -= a[left];
+                left++;
+            }
+            minReloc++;
+            right++;
+        }
+
+        return minReloc;
+    }
+public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Test the minRelocations function
+        int[] testArray = {2, -3, 1, 4, -2, 1};
+        System.out.println(solution.minRelocations(testArray)); // Expected output: 2
+    }
+}
